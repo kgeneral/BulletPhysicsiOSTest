@@ -172,8 +172,8 @@ GLfloat gCubeVertexData[216] =
 	{
 		//create a dynamic rigidbody
         
-		//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
-		btCollisionShape* colShape = new btSphereShape(btScalar(1.));
+		btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
+		//btCollisionShape* colShape = new btSphereShape(btScalar(1.));
 		collisionShapes.push_back(colShape);
         
 		/// Create Dynamic Objects
@@ -300,7 +300,7 @@ GLfloat gCubeVertexData[216] =
     
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexData), gCubeVertexData, GL_STATIC_DRAW);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexData), gCubeVertexData, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
@@ -334,7 +334,7 @@ GLfloat gCubeVertexData[216] =
     
     self.effect.transform.projectionMatrix = projectionMatrix;
     
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, -1.0f, -4.0f);
     baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
     
     // Compute the model view matrix for the object rendered with GLKit
@@ -353,26 +353,96 @@ GLfloat gCubeVertexData[216] =
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     
-    _rotation += self.timeSinceLastUpdate * 0.5f;
+    //_rotation += self.timeSinceLastUpdate * 0.5f;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+    GLfloat gCubeVertex[216] = 
+    {
+        // Data layout for each line below is:
+        // positionX, positionY, positionZ,     normalX, normalY, normalZ,
+        0.5f, -0.5f, -0.5f,        1.0f, 0.0f, 0.0f,
+        0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
+        0.5f, 0.5f, 0.5f,          1.0f, 0.0f, 0.0f,
+        0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,
+        
+        0.5f, 0.5f, -0.5f,         0.0f, 1.0f, 0.0f,
+        -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
+        -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f,         0.0f, 1.0f, 0.0f,
+        
+        -0.5f, 0.5f, -0.5f,        -1.0f, 0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
+        -0.5f, -0.5f, 0.5f,        -1.0f, 0.0f, 0.0f,
+        
+        -0.5f, -0.5f, -0.5f,       0.0f, -1.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
+        -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
+        -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
+        0.5f, -0.5f, 0.5f,         0.0f, -1.0f, 0.0f,
+        
+        0.5f, 0.5f, 0.5f,          0.0f, 0.0f, 1.0f,
+        -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
+        -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.5f,        0.0f, 0.0f, 1.0f,
+        
+        0.5f, -0.5f, -0.5f,        0.0f, 0.0f, -1.0f,
+        -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
+        0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
+        0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
+        -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
+        -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
+    };
+    
     dynamicsWorld->stepSimulation(1.f/60.f,10);
     
     //print positions of all objects
     for (int j=dynamicsWorld->getNumCollisionObjects()-1; j>=0 ;j--)
     {
         btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+        btBoxShape* boxShape = dynamic_cast<btBoxShape *>(obj->getCollisionShape());
+        //btCollisionShape* shape = obj->getCollisionShape();
+        //btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
+        
         btRigidBody* body = btRigidBody::upcast(obj);
         if (body && body->getMotionState())
         {
             btTransform trans;
             body->getMotionState()->getWorldTransform(trans);
             //printf("world pos = %f,%f,%f\n",float(trans.getOrigin().getX()),float(trans.getOrigin().getY()),float(trans.getOrigin().getZ()));
-            NSLog(@"world pos = %f,%f,%f",float(trans.getOrigin().getX()),float(trans.getOrigin().getY()),float(trans.getOrigin().getZ()));
+            int numofvertex = boxShape->getNumVertices();
+            for(int i=0;i<numofvertex;i++){
+                btVector3 vertexBasis;
+                boxShape->getVertex(i, vertexBasis);
+                btVector3 vertexAfterTransform = trans*vertexBasis;
+                
+                NSLog(@"vertex index = %d, pos = %f,%f,%f",i,vertexBasis.getX(),vertexBasis.getY(),vertexBasis.getZ());
+                //NSLog(@"vertex index = %d, pos = %f,%f,%f",i,vertexAfterTransform.getX(),vertexAfterTransform.getY(),vertexAfterTransform.getZ());
+                
+                //generate cube array
+                
+                //
+            }
+            //NSLog(@"world pos = %f,%f,%f",float(trans.getOrigin().getX()),float(trans.getOrigin().getY()),float(trans.getOrigin().getZ()));
+            
+            
+            
+            //trans.get
         }
     }
+    
+    glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertex), gCubeVertex, GL_STATIC_DRAW);
     
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
