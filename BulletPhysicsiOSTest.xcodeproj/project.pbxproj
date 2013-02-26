@@ -1,0 +1,335 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9F3E075916DC9F0E004CCF56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E075816DC9F0E004CCF56 /* UIKit.framework */; };
+		9F3E075B16DC9F0E004CCF56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E075A16DC9F0E004CCF56 /* Foundation.framework */; };
+		9F3E075D16DC9F0E004CCF56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E075C16DC9F0E004CCF56 /* CoreGraphics.framework */; };
+		9F3E075F16DC9F0E004CCF56 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E075E16DC9F0E004CCF56 /* GLKit.framework */; };
+		9F3E076116DC9F0E004CCF56 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E076016DC9F0E004CCF56 /* OpenGLES.framework */; };
+		9F3E076716DC9F0E004CCF56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F3E076516DC9F0E004CCF56 /* InfoPlist.strings */; };
+		9F3E076916DC9F0E004CCF56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3E076816DC9F0E004CCF56 /* main.m */; };
+		9F3E076D16DC9F0E004CCF56 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9F3E076C16DC9F0E004CCF56 /* AppDelegate.mm */; };
+		9F3E076F16DC9F0E004CCF56 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 9F3E076E16DC9F0E004CCF56 /* Shader.fsh */; };
+		9F3E077116DC9F0E004CCF56 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 9F3E077016DC9F0E004CCF56 /* Shader.vsh */; };
+		9F3E077416DC9F0E004CCF56 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9F3E077316DC9F0E004CCF56 /* ViewController.mm */; };
+		9F3E077716DC9F0E004CCF56 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3E077516DC9F0E004CCF56 /* ViewController_iPhone.xib */; };
+		9F3E077A16DC9F0E004CCF56 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3E077816DC9F0E004CCF56 /* ViewController_iPad.xib */; };
+		9F3E078216DC9F60004CCF56 /* libBulletPhysics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E078016DC9F60004CCF56 /* libBulletPhysics.a */; };
+		9F3E078316DC9F60004CCF56 /* libBulletPhysicsSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E078116DC9F60004CCF56 /* libBulletPhysicsSim.a */; };
+		9F3E078516DC9FED004CCF56 /* BulletPhysics in Resources */ = {isa = PBXBuildFile; fileRef = 9F3E078416DC9FED004CCF56 /* BulletPhysics */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9F3E075416DC9F0E004CCF56 /* BulletPhysicsiOSTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BulletPhysicsiOSTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F3E075816DC9F0E004CCF56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9F3E075A16DC9F0E004CCF56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9F3E075C16DC9F0E004CCF56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9F3E075E16DC9F0E004CCF56 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		9F3E076016DC9F0E004CCF56 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		9F3E076416DC9F0E004CCF56 /* BulletPhysicsiOSTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BulletPhysicsiOSTest-Info.plist"; sourceTree = "<group>"; };
+		9F3E076616DC9F0E004CCF56 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9F3E076816DC9F0E004CCF56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9F3E076A16DC9F0E004CCF56 /* BulletPhysicsiOSTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BulletPhysicsiOSTest-Prefix.pch"; sourceTree = "<group>"; };
+		9F3E076B16DC9F0E004CCF56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9F3E076C16DC9F0E004CCF56 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		9F3E076E16DC9F0E004CCF56 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		9F3E077016DC9F0E004CCF56 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		9F3E077216DC9F0E004CCF56 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9F3E077316DC9F0E004CCF56 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		9F3E077616DC9F0E004CCF56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		9F3E077916DC9F0E004CCF56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		9F3E078016DC9F60004CCF56 /* libBulletPhysics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletPhysics.a; path = lib/libBulletPhysics.a; sourceTree = "<group>"; };
+		9F3E078116DC9F60004CCF56 /* libBulletPhysicsSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletPhysicsSim.a; path = lib/libBulletPhysicsSim.a; sourceTree = "<group>"; };
+		9F3E078416DC9FED004CCF56 /* BulletPhysics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BulletPhysics; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9F3E075116DC9F0E004CCF56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F3E075916DC9F0E004CCF56 /* UIKit.framework in Frameworks */,
+				9F3E075B16DC9F0E004CCF56 /* Foundation.framework in Frameworks */,
+				9F3E075D16DC9F0E004CCF56 /* CoreGraphics.framework in Frameworks */,
+				9F3E075F16DC9F0E004CCF56 /* GLKit.framework in Frameworks */,
+				9F3E076116DC9F0E004CCF56 /* OpenGLES.framework in Frameworks */,
+				9F3E078216DC9F60004CCF56 /* libBulletPhysics.a in Frameworks */,
+				9F3E078316DC9F60004CCF56 /* libBulletPhysicsSim.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9F3E074916DC9F0E004CCF56 = {
+			isa = PBXGroup;
+			children = (
+				9F3E078416DC9FED004CCF56 /* BulletPhysics */,
+				9F3E076216DC9F0E004CCF56 /* BulletPhysicsiOSTest */,
+				9F3E075716DC9F0E004CCF56 /* Frameworks */,
+				9F3E075516DC9F0E004CCF56 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9F3E075516DC9F0E004CCF56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F3E075416DC9F0E004CCF56 /* BulletPhysicsiOSTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F3E075716DC9F0E004CCF56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F3E078016DC9F60004CCF56 /* libBulletPhysics.a */,
+				9F3E078116DC9F60004CCF56 /* libBulletPhysicsSim.a */,
+				9F3E075816DC9F0E004CCF56 /* UIKit.framework */,
+				9F3E075A16DC9F0E004CCF56 /* Foundation.framework */,
+				9F3E075C16DC9F0E004CCF56 /* CoreGraphics.framework */,
+				9F3E075E16DC9F0E004CCF56 /* GLKit.framework */,
+				9F3E076016DC9F0E004CCF56 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9F3E076216DC9F0E004CCF56 /* BulletPhysicsiOSTest */ = {
+			isa = PBXGroup;
+			children = (
+				9F3E076B16DC9F0E004CCF56 /* AppDelegate.h */,
+				9F3E076C16DC9F0E004CCF56 /* AppDelegate.mm */,
+				9F3E076E16DC9F0E004CCF56 /* Shader.fsh */,
+				9F3E077016DC9F0E004CCF56 /* Shader.vsh */,
+				9F3E077216DC9F0E004CCF56 /* ViewController.h */,
+				9F3E077316DC9F0E004CCF56 /* ViewController.mm */,
+				9F3E077516DC9F0E004CCF56 /* ViewController_iPhone.xib */,
+				9F3E077816DC9F0E004CCF56 /* ViewController_iPad.xib */,
+				9F3E076316DC9F0E004CCF56 /* Supporting Files */,
+			);
+			path = BulletPhysicsiOSTest;
+			sourceTree = "<group>";
+		};
+		9F3E076316DC9F0E004CCF56 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9F3E076416DC9F0E004CCF56 /* BulletPhysicsiOSTest-Info.plist */,
+				9F3E076516DC9F0E004CCF56 /* InfoPlist.strings */,
+				9F3E076816DC9F0E004CCF56 /* main.m */,
+				9F3E076A16DC9F0E004CCF56 /* BulletPhysicsiOSTest-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9F3E075316DC9F0E004CCF56 /* BulletPhysicsiOSTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F3E077D16DC9F0E004CCF56 /* Build configuration list for PBXNativeTarget "BulletPhysicsiOSTest" */;
+			buildPhases = (
+				9F3E075016DC9F0E004CCF56 /* Sources */,
+				9F3E075116DC9F0E004CCF56 /* Frameworks */,
+				9F3E075216DC9F0E004CCF56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BulletPhysicsiOSTest;
+			productName = BulletPhysicsiOSTest;
+			productReference = 9F3E075416DC9F0E004CCF56 /* BulletPhysicsiOSTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9F3E074B16DC9F0E004CCF56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 9F3E074E16DC9F0E004CCF56 /* Build configuration list for PBXProject "BulletPhysicsiOSTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9F3E074916DC9F0E004CCF56;
+			productRefGroup = 9F3E075516DC9F0E004CCF56 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9F3E075316DC9F0E004CCF56 /* BulletPhysicsiOSTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9F3E075216DC9F0E004CCF56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F3E076716DC9F0E004CCF56 /* InfoPlist.strings in Resources */,
+				9F3E076F16DC9F0E004CCF56 /* Shader.fsh in Resources */,
+				9F3E077116DC9F0E004CCF56 /* Shader.vsh in Resources */,
+				9F3E077716DC9F0E004CCF56 /* ViewController_iPhone.xib in Resources */,
+				9F3E077A16DC9F0E004CCF56 /* ViewController_iPad.xib in Resources */,
+				9F3E078516DC9FED004CCF56 /* BulletPhysics in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9F3E075016DC9F0E004CCF56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F3E076916DC9F0E004CCF56 /* main.m in Sources */,
+				9F3E076D16DC9F0E004CCF56 /* AppDelegate.mm in Sources */,
+				9F3E077416DC9F0E004CCF56 /* ViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9F3E076516DC9F0E004CCF56 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9F3E076616DC9F0E004CCF56 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9F3E077516DC9F0E004CCF56 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9F3E077616DC9F0E004CCF56 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		9F3E077816DC9F0E004CCF56 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9F3E077916DC9F0E004CCF56 /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9F3E077B16DC9F0E004CCF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/dae-yeongkim/Documents/workspace_cpp/BulletPhysicsiOSTest/BulletPhysics";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9F3E077C16DC9F0E004CCF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/dae-yeongkim/Documents/workspace_cpp/BulletPhysicsiOSTest/BulletPhysics";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9F3E077E16DC9F0E004CCF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BulletPhysicsiOSTest/BulletPhysicsiOSTest-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "BulletPhysicsiOSTest/BulletPhysicsiOSTest-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9F3E077F16DC9F0E004CCF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BulletPhysicsiOSTest/BulletPhysicsiOSTest-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "BulletPhysicsiOSTest/BulletPhysicsiOSTest-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9F3E074E16DC9F0E004CCF56 /* Build configuration list for PBXProject "BulletPhysicsiOSTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F3E077B16DC9F0E004CCF56 /* Debug */,
+				9F3E077C16DC9F0E004CCF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F3E077D16DC9F0E004CCF56 /* Build configuration list for PBXNativeTarget "BulletPhysicsiOSTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F3E077E16DC9F0E004CCF56 /* Debug */,
+				9F3E077F16DC9F0E004CCF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9F3E074B16DC9F0E004CCF56 /* Project object */;
+}
