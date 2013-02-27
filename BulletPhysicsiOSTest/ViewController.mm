@@ -29,7 +29,7 @@ enum
     ATTRIB_NORMAL,
     NUM_ATTRIBUTES
 };
-
+/*
 GLfloat gCubeVertexData[216] = 
 {
     // Data layout for each line below is:
@@ -76,6 +76,7 @@ GLfloat gCubeVertexData[216] =
     -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
     -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
 };
+*/
 
 @interface ViewController () {
     GLuint _program;
@@ -113,6 +114,9 @@ GLfloat gCubeVertexData[216] =
 @synthesize context = _context;
 @synthesize effect = _effect;
 
+-(void)addBox {
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -197,6 +201,7 @@ GLfloat gCubeVertexData[216] =
         btRigidBody* body = new btRigidBody(rbInfo);
         
         dynamicsWorld->addRigidBody(body);
+        
 	}
     
 
@@ -327,23 +332,28 @@ GLfloat gCubeVertexData[216] =
 
 #pragma mark - GLKView and GLKViewController delegate methods
 
+GLfloat testz = -20.0f;
+
 - (void)update
 {
+
+    //testz -= 1.0f;
     float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 10000.0f);
     
     self.effect.transform.projectionMatrix = projectionMatrix;
     
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, -1.0f, -4.0f);
+    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, -5.0f, testz);
     baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
     
     // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+    //modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
     
     self.effect.transform.modelviewMatrix = modelViewMatrix;
     
+    /*
     // Compute the model view matrix for the object rendered with ES2
     modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
@@ -352,60 +362,126 @@ GLfloat gCubeVertexData[216] =
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
-    
+    */
     //_rotation += self.timeSinceLastUpdate * 0.5f;
 }
+- (void) getTriangleFromVertices:(btVector3*) vertex vertexList:(GLfloat*)vertexList {
+    
+    //return nil;
+}
 
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
-{
-    GLfloat gCubeVertex[216] = 
-    {
-        // Data layout for each line below is:
-        // positionX, positionY, positionZ,     normalX, normalY, normalZ,
-        0.5f, -0.5f, -0.5f,        1.0f, 0.0f, 0.0f,
-        0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
-        0.5f, 0.5f, 0.5f,          1.0f, 0.0f, 0.0f,
-        0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,
+- (void) getCubeFromVertices:(btCollisionObject*) obj vertexList:(GLfloat*)vertexList {
+    
+    /*
+     vertex index = 0, pos = 1.000000,1.000000,1.000000
+     vertex index = 1, pos = -1.000000,1.000000,1.000000
+     vertex index = 2, pos = 1.000000,-1.000000,1.000000
+     vertex index = 3, pos = -1.000000,-1.000000,1.000000
+     vertex index = 4, pos = 1.000000,1.000000,-1.000000
+     vertex index = 5, pos = -1.000000,1.000000,-1.000000
+     vertex index = 6, pos = 1.000000,-1.000000,-1.000000
+     vertex index = 7, pos = -1.000000,-1.000000,-1.000000
+     
+     set triangles : clockwise
+     
+     1 : 6 2 4 0 4 2
+     2 : 0 1 4 5 4 1
+     3 : 3 7 1 5 1 7
+     4 : 6 7 2 3 2 7
+     5 : 2 3 0 1 0 3
+     6 : 7 6 5 4 5 6
+     
+     */
+    
+    btBoxShape* boxShape = dynamic_cast<btBoxShape *>(obj->getCollisionShape());    
+    btRigidBody* body = btRigidBody::upcast(obj);
+    if (!(body && body->getMotionState())) return;
+    
+    btVector3 vertex[8];
+    int numofvertex = boxShape->getNumVertices();
+    for(int i=0;i<numofvertex;i++){
+        boxShape->getVertex(i, vertex[i]);
+        /*
+        btVector3 vertexBasis;
+        boxShape->getVertex(i, vertexBasis);
+        vertex[i] = trans*vertexBasis;
+         */
+        //vertex[i];
+        //btVector3 vertexAfterTransform = trans*vertexBasis;
         
-        0.5f, 0.5f, -0.5f,         0.0f, 1.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
-        0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
-        0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
-        -0.5f, 0.5f, 0.5f,         0.0f, 1.0f, 0.0f,
-        
-        -0.5f, 0.5f, -0.5f,        -1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
-        -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
-        -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f, 0.5f,        -1.0f, 0.0f, 0.0f,
-        
-        -0.5f, -0.5f, -0.5f,       0.0f, -1.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
-        -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
-        -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
-        0.5f, -0.5f, 0.5f,         0.0f, -1.0f, 0.0f,
-        
-        0.5f, 0.5f, 0.5f,          0.0f, 0.0f, 1.0f,
-        -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-        -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.5f,        0.0f, 0.0f, 1.0f,
-        
-        0.5f, -0.5f, -0.5f,        0.0f, 0.0f, -1.0f,
-        -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
-        0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
-        0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
-        -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
-        -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
+        //NSLog(@"vertex index = %d, pos = %f,%f,%f",i,vertexBasis.getX(),vertexBasis.getY(),vertexBasis.getZ());
+        //NSLog(@"vertex index = %d, pos = %f,%f,%f",i,vertexAfterTransform.getX(),vertexAfterTransform.getY(),vertexAfterTransform.getZ());
+    }
+    
+    // TODO : add 3d model objective file parser
+    
+    GLint vertexMapList[6][6] = {
+        {6, 2, 4, 0, 4, 2},
+        {0, 1, 4, 5, 4, 1},
+        {3, 7, 1, 5, 1, 7},
+        {6, 7, 2, 3, 2, 7},
+        {2, 3, 0, 1, 0, 3},
+        {7, 6, 5, 4, 5, 6}
     };
     
+    GLfloat normalList[6][3] = {
+        {1.0f, .0f, .0f},
+        {.0f, 1.0f, .0f},
+        {-1.0f, .0f, .0f},
+        {.0f, -1.0f, .0f},
+        {.0f, .0f, 1.0f},
+        {.0f, .0f, -1.0f}
+    };
+
+    btTransform trans;
+    body->getMotionState()->getWorldTransform(trans);  
+    
+    for(int i=0;i<6;i++){
+        //NSLog(@"plane index : %d", i);
+        for(int j=0;j<6;j++){
+            //vertexList
+            int vertexIndex = vertexMapList[i][j];
+            btVector3 curVertex = vertex[vertexIndex];
+            btVector3 curNormal(normalList[i][0], normalList[i][1], normalList[i][2]);
+            
+            curVertex = trans*curVertex;
+            //curNormal = trans*curNormal;
+            
+            //NSLog(@"vertex index : %d", vertexIndex);
+            //int vertexListIndex;
+            /*
+            btVector3 vertexBasis;
+            boxShape->getVertex(i, vertexBasis);
+            vertex[i] = trans*vertexBasis;
+            */
+            
+            //vertex
+            vertexList[i*36 + j*6 + 0] = curVertex.getX();
+            vertexList[i*36 + j*6 + 1] = curVertex.getY();
+            vertexList[i*36 + j*6 + 2] = curVertex.getZ();
+            //NSLog(@"vertex : %f, %f, %f", curVertex.getX(), curVertex.getY(), curVertex.getZ());
+            
+            //normal
+            vertexList[i*36 + j*6 + 3] = curNormal.getX();
+            vertexList[i*36 + j*6 + 4] = curNormal.getY();
+            vertexList[i*36 + j*6 + 5] = curNormal.getZ();         
+            //NSLog(@"normal : %f, %f, %f", curNormal.getX(), curNormal.getY(), curNormal.getZ());
+            
+        }
+    }    
+    //return nil;
+}
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
+{
+    glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+//    GLfloat square
+    GLfloat normalMag = 1.0f;
+    
     dynamicsWorld->stepSimulation(1.f/60.f,10);
+    
+    GLfloat gCubeVertexList[216];
     
     //print positions of all objects
     for (int j=dynamicsWorld->getNumCollisionObjects()-1; j>=0 ;j--)
@@ -420,40 +496,22 @@ GLfloat gCubeVertexData[216] =
         {
             btTransform trans;
             body->getMotionState()->getWorldTransform(trans);
-            //printf("world pos = %f,%f,%f\n",float(trans.getOrigin().getX()),float(trans.getOrigin().getY()),float(trans.getOrigin().getZ()));
-            int numofvertex = boxShape->getNumVertices();
-            for(int i=0;i<numofvertex;i++){
-                btVector3 vertexBasis;
-                boxShape->getVertex(i, vertexBasis);
-                btVector3 vertexAfterTransform = trans*vertexBasis;
-                
-                NSLog(@"vertex index = %d, pos = %f,%f,%f",i,vertexBasis.getX(),vertexBasis.getY(),vertexBasis.getZ());
-                //NSLog(@"vertex index = %d, pos = %f,%f,%f",i,vertexAfterTransform.getX(),vertexAfterTransform.getY(),vertexAfterTransform.getZ());
-                
-                //generate cube array
-                
-                //
-            }
-            //NSLog(@"world pos = %f,%f,%f",float(trans.getOrigin().getX()),float(trans.getOrigin().getY()),float(trans.getOrigin().getZ()));
+            [self getCubeFromVertices:obj vertexList:gCubeVertexList];            
             
+            glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexList), gCubeVertexList, GL_STATIC_DRAW);            
             
+            glBindVertexArrayOES(_vertexArray);
             
-            //trans.get
-        }
+            // Render the object with GLKit
+            [self.effect prepareToDraw];
+            
+            // 36 = 216 / 6
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+            
+        }        
     }
     
-    glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertex), gCubeVertex, GL_STATIC_DRAW);
-    
-    glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    glBindVertexArrayOES(_vertexArray);
-    
-    // Render the object with GLKit
-    [self.effect prepareToDraw];
-    
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    
+    /*
     // Render the object again with ES2
     glUseProgram(_program);
     
@@ -461,6 +519,7 @@ GLfloat gCubeVertexData[216] =
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
     
     glDrawArrays(GL_TRIANGLES, 0, 36);
+     */
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
