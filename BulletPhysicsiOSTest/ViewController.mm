@@ -78,6 +78,9 @@ GLfloat gCubeVertexData[216] =
 };
 */
 
+double pastms = [[NSDate date] timeIntervalSince1970];
+double generateInterval = 0.0f;
+
 @interface ViewController () {
     GLuint _program;
     
@@ -100,6 +103,8 @@ GLfloat gCubeVertexData[216] =
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) GLKBaseEffect *effect;
 
+@property (nonatomic, strong) UILabel *debug;
+
 - (void)setupGL;
 - (void)tearDownGL;
 
@@ -111,8 +116,17 @@ GLfloat gCubeVertexData[216] =
 
 @implementation ViewController
 
+@synthesize debug;
+
 @synthesize context = _context;
 @synthesize effect = _effect;
+
+- (void)_debug_data:(float)fps box_num:(int)box_num {
+    self.debug.text = [NSString stringWithFormat:@"fps : %f, box : %d", fps, box_num];
+}
+- (void)_debug_message:(NSString *)message {
+    self.debug.text = @"test";
+}
 
 -(void)addBox:(btVector3)position {
     //create a dynamic rigidbody
@@ -147,7 +161,16 @@ GLfloat gCubeVertexData[216] =
 {
     [super viewDidLoad];
     
-	//int i;
+    // add debug label
+    CGRect sumFrame = CGRectMake(50, 50, 300, 30);
+    self.debug = [[UILabel alloc] initWithFrame:sumFrame];
+    self.debug.text = @"debug";
+    self.debug.font = [UIFont boldSystemFontOfSize:15];
+    self.debug.textAlignment = UITextAlignmentLeft;
+    self.debug.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.debug];
+    
+
 	///-----initialization_start-----
     
 	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
@@ -200,6 +223,7 @@ GLfloat gCubeVertexData[216] =
     
     
 	{
+        /*
 		[self addBox:btVector3(2,10,0)];
 		[self addBox:btVector3(2,15,0)];        
         [self addBox:btVector3(2,19,0)];
@@ -210,6 +234,7 @@ GLfloat gCubeVertexData[216] =
         [self addBox:btVector3(1,25,3)];
         [self addBox:btVector3(1,27,1)];
         [self addBox:btVector3(1,35,2)];
+         */
 	}
     
 
@@ -481,8 +506,32 @@ GLfloat testz = -20.0f;
     }    
     //return nil;
 }
+int numofboxes = 0;
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+    
+    //print fps
+    double curms = [[NSDate date] timeIntervalSince1970];
+    double intervalms = curms - pastms;
+    //NSLog(@"fps = %f", 1 / intervalms);
+    pastms = curms;
+    
+    [self _debug_data:(1 / intervalms) box_num:numofboxes];
+    
+    //check interval
+    generateInterval += intervalms;
+    if(generateInterval > 0.5f) {
+        int a = arc4random() % 1000;
+        float x = (float)(a - 500.0f) / 100.0f;
+        //[self _debug_data:(1 / intervalms) box_num:0];
+        //NSLog(@"total : %lu, new box = %f %f",boxList.size(), x, 50.0f);
+//        [self makeBox:x y:50.0f];
+        [self addBox:btVector3(1,35,2)];
+        numofboxes++;
+        generateInterval = 0.0f;
+        //NSLog(@"fps = %f", 1 / intervalms);
+    }
+    
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
