@@ -200,7 +200,7 @@ double generateInterval = 0.0f;
     
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(0,-56,0));
+	groundTransform.setOrigin(btVector3(0,-50,0));
     
 	{
 		btScalar mass(0.);
@@ -329,9 +329,26 @@ double generateInterval = 0.0f;
     
     [self loadShaders];
     
+    //http://developer.apple.com/library/ios/#documentation/GLkit/Reference/GLKEffectPropertyLight_ClassRef/Reference/Reference.html
+    
+    /*
+     
+     If the w component of the position is 0.0, the light is calculated using the directional light formula. The x, y, and z components of the vector specify the direction the light shines. The light is assumed to be infinitely far away; attenuation and spotlight properties are ignored.
+     
+     If the w component of the position is a non-zero value, the coordinates specify the position of the light in homogenous coordinates, and the light is either calculated as a point light or a spotlight, depending on the value of the spotCutoff property.
+     
+     */
+    
     self.effect = [[GLKBaseEffect alloc] init];
     self.effect.light0.enabled = GL_TRUE;
-    self.effect.light0.ambientColor = GLKVector4Make(0.6f, 0.4f, 0.6f, 1.0f);
+    self.effect.light0.position = GLKVector4Make(1.0f, 1.0f, 1.0f, 0.0f);
+    self.effect.light0.ambientColor = GLKVector4Make(0.6f, 0.4f, 0.6f, 0.0f);
+    //self.effect.light0.constantAttenuation = 100.0f;
+    //self.effect.light0.linearAttenuation = 100.0f;
+    //self.effect.light0.quadraticAttenuation = 100.0f;
+//    
+//    self.effect.light0.diffuseColor = GLKVector4Make(0.6f, 0.4f, 0.6f, 1.0f);
+    //self.effect.light0.spotDirection = GLKVector3Make(0.0f, -1.0f, 0.0f);
     //self.effect.light0.position = GLKVector4Make(2.0f, 1.0f, 3.0f, 0.0f);
     //self.effect.light0.diffuseColor = GLKVector4Make(0.6f, 0.4f, 0.6f, 1.0f);
 
@@ -375,23 +392,20 @@ double generateInterval = 0.0f;
 
 #pragma mark - GLKView and GLKViewController delegate methods
 
-GLfloat testz = -20.0f;
 
 - (void)update
 {
-
-    //testz -= 1.0f;
     float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 10000.0f);
     
     self.effect.transform.projectionMatrix = projectionMatrix;
     
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, -5.0f, testz);
-    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, -5.0f, -20.0f);
+    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 1.0f, 0.0f, 0.0f);
     
     // Compute the model view matrix for the object rendered with GLKit
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 0.0f, 0.0f);
+    //modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 0.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
     
     self.effect.transform.modelviewMatrix = modelViewMatrix;
@@ -407,7 +421,7 @@ GLfloat testz = -20.0f;
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     */
     //_rotation += self.timeSinceLastUpdate * 0.5f;
-    _rotation = 0.2f;
+    _rotation = 0.4f;
 }
 - (void) getTriangleFromVertices:(btVector3*) vertex vertexList:(GLfloat*)vertexList {
     
@@ -492,10 +506,12 @@ GLfloat testz = -20.0f;
             int vertexIndex = vertexMapList[i][j];
             btVector3 curVertex = vertex[vertexIndex];
             btVector3 curNormal(normalList[i][0], normalList[i][1], normalList[i][2]);
-            
             curVertex = trans*curVertex;
+//            curVertex = trans*curVertex;
             if(invMass > 0.000001f) {
                 curNormal = trans*curNormal;
+            } else {
+            //    curNormal *= 1000;
             }
             // get normal with vector dot equation
             
