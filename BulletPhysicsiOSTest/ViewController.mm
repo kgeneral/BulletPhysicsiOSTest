@@ -114,8 +114,34 @@ GLfloat gCubeVertexData[216] =
 @synthesize context = _context;
 @synthesize effect = _effect;
 
--(void)addBox {
+-(void)addBox:(btVector3)position {
+    //create a dynamic rigidbody
     
+    btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
+    //btCollisionShape* colShape = new btSphereShape(btScalar(1.));
+    collisionShapes.push_back(colShape);
+    
+    /// Create Dynamic Objects
+    btTransform startTransform;
+    startTransform.setIdentity();
+    
+    btScalar	mass(1.f);
+    
+    //rigidbody is dynamic if and only if mass is non zero, otherwise static
+    bool isDynamic = (mass != 0.f);
+    
+    btVector3 localInertia(0,0,0);
+    if (isDynamic)
+        colShape->calculateLocalInertia(mass,localInertia);
+    
+    startTransform.setOrigin(position);
+    
+    //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+    btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+    btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
+    btRigidBody* body = new btRigidBody(rbInfo);
+    
+    dynamicsWorld->addRigidBody(body);
 }
 - (void)viewDidLoad
 {
@@ -174,34 +200,16 @@ GLfloat gCubeVertexData[216] =
     
     
 	{
-		//create a dynamic rigidbody
-        
-		btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
-		//btCollisionShape* colShape = new btSphereShape(btScalar(1.));
-		collisionShapes.push_back(colShape);
-        
-		/// Create Dynamic Objects
-		btTransform startTransform;
-		startTransform.setIdentity();
-        
-		btScalar	mass(1.f);
-        
-		//rigidbody is dynamic if and only if mass is non zero, otherwise static
-		bool isDynamic = (mass != 0.f);
-        
-		btVector3 localInertia(0,0,0);
-		if (isDynamic)
-			colShape->calculateLocalInertia(mass,localInertia);
-        
-        startTransform.setOrigin(btVector3(2,10,0));
-		
-        //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-        btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-        btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
-        btRigidBody* body = new btRigidBody(rbInfo);
-        
-        dynamicsWorld->addRigidBody(body);
-        
+		[self addBox:btVector3(2,10,0)];
+		[self addBox:btVector3(2,15,0)];        
+        [self addBox:btVector3(2,19,0)];
+        [self addBox:btVector3(5,10,0)];
+        [self addBox:btVector3(1,10,0)];
+        [self addBox:btVector3(1,10,0)];
+        [self addBox:btVector3(1,22,0)];
+        [self addBox:btVector3(1,25,3)];
+        [self addBox:btVector3(1,27,1)];
+        [self addBox:btVector3(1,35,2)];
 	}
     
 
@@ -306,13 +314,15 @@ GLfloat gCubeVertexData[216] =
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     //glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexData), gCubeVertexData, GL_STATIC_DRAW);
-    
+    /*
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
     glEnableVertexAttribArray(GLKVertexAttribNormal);
     glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));
-    
+     
     glBindVertexArrayOES(0);
+    */
+
 }
 
 - (void)tearDownGL
@@ -348,7 +358,7 @@ GLfloat testz = -20.0f;
     
     // Compute the model view matrix for the object rendered with GLKit
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
-    //modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 0.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
     
     self.effect.transform.modelviewMatrix = modelViewMatrix;
@@ -363,7 +373,7 @@ GLfloat testz = -20.0f;
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     */
-    //_rotation += self.timeSinceLastUpdate * 0.5f;
+    _rotation = 0.5f;
 }
 - (void) getTriangleFromVertices:(btVector3*) vertex vertexList:(GLfloat*)vertexList {
     
@@ -499,6 +509,13 @@ GLfloat testz = -20.0f;
             [self getCubeFromVertices:obj vertexList:gCubeVertexList];            
             
             glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexList), gCubeVertexList, GL_STATIC_DRAW);            
+            
+            glEnableVertexAttribArray(GLKVertexAttribPosition);
+            glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
+            glEnableVertexAttribArray(GLKVertexAttribNormal);
+            glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));
+            
+            //glBindVertexArrayOES(0);
             
             glBindVertexArrayOES(_vertexArray);
             
