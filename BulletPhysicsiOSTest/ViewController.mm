@@ -217,6 +217,8 @@ double generateInterval = 0.0f;
 		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,groundShape,localInertia);
 		btRigidBody* body = new btRigidBody(rbInfo);
         
+        
+        
 		//add the body to the dynamics world
 		dynamicsWorld->addRigidBody(body);
 	}
@@ -329,7 +331,13 @@ double generateInterval = 0.0f;
     
     self.effect = [[GLKBaseEffect alloc] init];
     self.effect.light0.enabled = GL_TRUE;
-    self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
+    self.effect.light0.ambientColor = GLKVector4Make(0.6f, 0.4f, 0.6f, 1.0f);
+    //self.effect.light0.position = GLKVector4Make(2.0f, 1.0f, 3.0f, 0.0f);
+    //self.effect.light0.diffuseColor = GLKVector4Make(0.6f, 0.4f, 0.6f, 1.0f);
+
+    //self.effect.light1.enabled = GL_TRUE;
+    //self.effect.light1.position = GLKVector4Make(-2.0f, -1.0f, 3.0f, 0.0f);
+    //self.effect.light1.diffuseColor = GLKVector4Make(0.2f, 0.9f, 0.6f, 1.0f);
     
     glEnable(GL_DEPTH_TEST);
     
@@ -383,7 +391,7 @@ GLfloat testz = -20.0f;
     
     // Compute the model view matrix for the object rendered with GLKit
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 0.0f, 1.0f);
+    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 0.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
     
     self.effect.transform.modelviewMatrix = modelViewMatrix;
@@ -398,7 +406,8 @@ GLfloat testz = -20.0f;
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     */
-    _rotation = 0.5f;
+    //_rotation += self.timeSinceLastUpdate * 0.5f;
+    _rotation = 0.2f;
 }
 - (void) getTriangleFromVertices:(btVector3*) vertex vertexList:(GLfloat*)vertexList {
     
@@ -428,9 +437,14 @@ GLfloat testz = -20.0f;
      
      */
     
+    
+    //DISABLE_SIMULATION
     btBoxShape* boxShape = dynamic_cast<btBoxShape *>(obj->getCollisionShape());    
     btRigidBody* body = btRigidBody::upcast(obj);
     if (!(body && body->getMotionState())) return;
+    
+    float invMass = body->getInvMass();    
+    //NSLog(@"getInvMass = %f", invMass);    
     
     btVector3 vertex[8];
     int numofvertex = boxShape->getNumVertices();
@@ -480,6 +494,11 @@ GLfloat testz = -20.0f;
             btVector3 curNormal(normalList[i][0], normalList[i][1], normalList[i][2]);
             
             curVertex = trans*curVertex;
+            if(invMass > 0.000001f) {
+                curNormal = trans*curNormal;
+            }
+            // get normal with vector dot equation
+            
             //curNormal = trans*curNormal;
             
             //NSLog(@"vertex index : %d", vertexIndex);
@@ -521,11 +540,7 @@ int numofboxes = 0;
     //check interval
     generateInterval += intervalms;
     if(generateInterval > 0.5f) {
-        int a = arc4random() % 1000;
-        float x = (float)(a - 500.0f) / 100.0f;
-        //[self _debug_data:(1 / intervalms) box_num:0];
         //NSLog(@"total : %lu, new box = %f %f",boxList.size(), x, 50.0f);
-//        [self makeBox:x y:50.0f];
         [self addBox:btVector3(1,35,2)];
         numofboxes++;
         generateInterval = 0.0f;
@@ -535,9 +550,6 @@ int numofboxes = 0;
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-//    GLfloat square
-    GLfloat normalMag = 1.0f;
-    
     dynamicsWorld->stepSimulation(1.f/60.f,10);
     
     GLfloat gCubeVertexList[216];
@@ -546,16 +558,12 @@ int numofboxes = 0;
     for (int j=dynamicsWorld->getNumCollisionObjects()-1; j>=0 ;j--)
     {
         btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
-        btBoxShape* boxShape = dynamic_cast<btBoxShape *>(obj->getCollisionShape());
-        //btCollisionShape* shape = obj->getCollisionShape();
-        //btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
-        
         btRigidBody* body = btRigidBody::upcast(obj);
         if (body && body->getMotionState())
-        {
+        {            
             btTransform trans;
             body->getMotionState()->getWorldTransform(trans);
-            [self getCubeFromVertices:obj vertexList:gCubeVertexList];            
+            [self getCubeFromVertices:obj vertexList:gCubeVertexList];      
             
             glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexList), gCubeVertexList, GL_STATIC_DRAW);            
             
@@ -564,8 +572,6 @@ int numofboxes = 0;
             glEnableVertexAttribArray(GLKVertexAttribNormal);
             glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));
             
-            //glBindVertexArrayOES(0);
-            
             glBindVertexArrayOES(_vertexArray);
             
             // Render the object with GLKit
@@ -573,8 +579,8 @@ int numofboxes = 0;
             
             // 36 = 216 / 6
             glDrawArrays(GL_TRIANGLES, 0, 36);
-            
-        }        
+        }    
+        
     }
     
     /*
