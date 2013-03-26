@@ -155,6 +155,29 @@ double generateInterval = 0.0f;
     btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
     btRigidBody* body = new btRigidBody(rbInfo);
     
+    btVector3 initialForce(0,-1500,0);
+    btVector3 relPos(0,0,0);
+    //body->applyCentralForce(initialForce);
+    body->applyForce(initialForce, relPos);
+    //    body->applyImpulse(<#const btVector3 &impulse#>, <#const btVector3 &rel_pos#>)
+    
+    // impulse = force * delta_time
+    //body->applyCentralImpulse(0,-2000,0);
+    /*
+     void	applyForce(const btVector3& force, const btVector3& rel_pos)
+     {
+     applyCentralForce(force);
+     //http://en.wikipedia.org/wiki/Torque
+     // boldsymbol{\tau} = \mathbf{r} \times \mathbf{F},
+     applyTorque(rel_pos.cross(force*m_linearFactor));
+     }
+     
+     */
+    
+    //Mathematically, torque is defined as the cross product of the lever-arm distance and force, which tends to produce rotation.
+    //
+
+    
     dynamicsWorld->addRigidBody(body);
 }
 - (void)viewDidLoad
