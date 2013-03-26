@@ -555,9 +555,18 @@ int numofboxes = 0;
     
     //check interval
     generateInterval += intervalms;
-    if(generateInterval > 0.5f) {
-        //NSLog(@"total : %lu, new box = %f %f",boxList.size(), x, 50.0f);
-        [self addBox:btVector3(1,35,2)];
+    
+    int startx = -2;
+    int endx = 10;
+    
+    if(generateInterval > 0.5f) {        
+        double curx = (double)(arc4random() % endx) + startx;
+        double cury = 30;
+        double curz = 1;
+        
+        [self addBox:btVector3(curx,cury,curz)];
+        
+        NSLog(@"new box = %f %f %f",curx, cury, curz);
         numofboxes++;
         generateInterval = 0.0f;
         //NSLog(@"fps = %f", 1 / intervalms);
