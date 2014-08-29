@@ -23,6 +23,12 @@
 		9F3E078216DC9F60004CCF56 /* libBulletPhysics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E078016DC9F60004CCF56 /* libBulletPhysics.a */; };
 		9F3E078316DC9F60004CCF56 /* libBulletPhysicsSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E078116DC9F60004CCF56 /* libBulletPhysicsSim.a */; };
 		9F3E078516DC9FED004CCF56 /* BulletPhysics in Resources */ = {isa = PBXBuildFile; fileRef = 9F3E078416DC9FED004CCF56 /* BulletPhysics */; };
+		9F4367981701ACD600F0BDE0 /* libBulletPhysicsios6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4367971701ACD600F0BDE0 /* libBulletPhysicsios6.a */; };
+		9FDB9EEC16FAC5A20018D3E1 /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 9FDB9EEB16FAC5A20018D3E1 /* cube.obj */; };
+		9FDB9F0416FAC90C0018D3E1 /* list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB9EF516FAC90C0018D3E1 /* list.cpp */; };
+		9FDB9F0516FAC90C0018D3E1 /* obj_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB9EF716FAC90C0018D3E1 /* obj_parser.cpp */; };
+		9FDB9F0616FAC90C0018D3E1 /* objLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB9EF916FAC90C0018D3E1 /* objLoader.cpp */; };
+		9FDB9F0A16FAC90C0018D3E1 /* string_extra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB9EFE16FAC90C0018D3E1 /* string_extra.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +53,16 @@
 		9F3E078016DC9F60004CCF56 /* libBulletPhysics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletPhysics.a; path = lib/libBulletPhysics.a; sourceTree = "<group>"; };
 		9F3E078116DC9F60004CCF56 /* libBulletPhysicsSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletPhysicsSim.a; path = lib/libBulletPhysicsSim.a; sourceTree = "<group>"; };
 		9F3E078416DC9FED004CCF56 /* BulletPhysics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BulletPhysics; sourceTree = "<group>"; };
+		9F4367971701ACD600F0BDE0 /* libBulletPhysicsios6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletPhysicsios6.a; path = lib/libBulletPhysicsios6.a; sourceTree = "<group>"; };
+		9FDB9EEB16FAC5A20018D3E1 /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		9FDB9EF516FAC90C0018D3E1 /* list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list.cpp; sourceTree = "<group>"; };
+		9FDB9EF616FAC90C0018D3E1 /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
+		9FDB9EF716FAC90C0018D3E1 /* obj_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = obj_parser.cpp; sourceTree = "<group>"; };
+		9FDB9EF816FAC90C0018D3E1 /* obj_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = obj_parser.h; sourceTree = "<group>"; };
+		9FDB9EF916FAC90C0018D3E1 /* objLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = objLoader.cpp; sourceTree = "<group>"; };
+		9FDB9EFA16FAC90C0018D3E1 /* objLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objLoader.h; sourceTree = "<group>"; };
+		9FDB9EFE16FAC90C0018D3E1 /* string_extra.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_extra.cpp; sourceTree = "<group>"; };
+		9FDB9EFF16FAC90C0018D3E1 /* string_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_extra.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +77,7 @@
 				9F3E076116DC9F0E004CCF56 /* OpenGLES.framework in Frameworks */,
 				9F3E078216DC9F60004CCF56 /* libBulletPhysics.a in Frameworks */,
 				9F3E078316DC9F60004CCF56 /* libBulletPhysicsSim.a in Frameworks */,
+				9F4367981701ACD600F0BDE0 /* libBulletPhysicsios6.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +91,8 @@
 				9F3E076216DC9F0E004CCF56 /* BulletPhysicsiOSTest */,
 				9F3E075716DC9F0E004CCF56 /* Frameworks */,
 				9F3E075516DC9F0E004CCF56 /* Products */,
+				9FDB9EF216FAC90C0018D3E1 /* ObjParser */,
+				9FDB9EEA16FAC5A20018D3E1 /* Models */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +107,7 @@
 		9F3E075716DC9F0E004CCF56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F4367971701ACD600F0BDE0 /* libBulletPhysicsios6.a */,
 				9F3E078016DC9F60004CCF56 /* libBulletPhysics.a */,
 				9F3E078116DC9F60004CCF56 /* libBulletPhysicsSim.a */,
 				9F3E075816DC9F0E004CCF56 /* UIKit.framework */,
@@ -126,6 +146,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9FDB9EEA16FAC5A20018D3E1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9FDB9EEB16FAC5A20018D3E1 /* cube.obj */,
+			);
+			name = Models;
+			path = models;
+			sourceTree = "<group>";
+		};
+		9FDB9EF216FAC90C0018D3E1 /* ObjParser */ = {
+			isa = PBXGroup;
+			children = (
+				9FDB9EF516FAC90C0018D3E1 /* list.cpp */,
+				9FDB9EF616FAC90C0018D3E1 /* list.h */,
+				9FDB9EF716FAC90C0018D3E1 /* obj_parser.cpp */,
+				9FDB9EF816FAC90C0018D3E1 /* obj_parser.h */,
+				9FDB9EF916FAC90C0018D3E1 /* objLoader.cpp */,
+				9FDB9EFA16FAC90C0018D3E1 /* objLoader.h */,
+				9FDB9EFE16FAC90C0018D3E1 /* string_extra.cpp */,
+				9FDB9EFF16FAC90C0018D3E1 /* string_extra.h */,
+			);
+			path = ObjParser;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -152,7 +196,12 @@
 		9F3E074B16DC9F0E004CCF56 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0460;
+				TargetAttributes = {
+					9F3E075316DC9F0E004CCF56 = {
+						DevelopmentTeam = W3XELSE2AE;
+					};
+				};
 			};
 			buildConfigurationList = 9F3E074E16DC9F0E004CCF56 /* Build configuration list for PBXProject "BulletPhysicsiOSTest" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -182,6 +231,7 @@
 				9F3E077716DC9F0E004CCF56 /* ViewController_iPhone.xib in Resources */,
 				9F3E077A16DC9F0E004CCF56 /* ViewController_iPad.xib in Resources */,
 				9F3E078516DC9FED004CCF56 /* BulletPhysics in Resources */,
+				9FDB9EEC16FAC5A20018D3E1 /* cube.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +245,10 @@
 				9F3E076916DC9F0E004CCF56 /* main.m in Sources */,
 				9F3E076D16DC9F0E004CCF56 /* AppDelegate.mm in Sources */,
 				9F3E077416DC9F0E004CCF56 /* ViewController.mm in Sources */,
+				9FDB9F0416FAC90C0018D3E1 /* list.cpp in Sources */,
+				9FDB9F0516FAC90C0018D3E1 /* obj_parser.cpp in Sources */,
+				9FDB9F0616FAC90C0018D3E1 /* objLoader.cpp in Sources */,
+				9FDB9F0A16FAC90C0018D3E1 /* string_extra.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +288,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -247,6 +305,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = BulletPhysics;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
@@ -261,12 +320,17 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = BulletPhysics;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
@@ -280,6 +344,8 @@
 		9F3E077E16DC9F0E004CCF56 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BulletPhysicsiOSTest/BulletPhysicsiOSTest-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
@@ -289,6 +355,7 @@
 					"\"$(SRCROOT)/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -296,6 +363,8 @@
 		9F3E077F16DC9F0E004CCF56 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BulletPhysicsiOSTest/BulletPhysicsiOSTest-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
@@ -305,6 +374,7 @@
 					"\"$(SRCROOT)/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -328,6 +398,7 @@
 				9F3E077F16DC9F0E004CCF56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
