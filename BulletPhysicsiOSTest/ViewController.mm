@@ -381,8 +381,8 @@ double generateInterval = 0.0f;
     
     glEnable(GL_DEPTH_TEST);
     
-    glGenVertexArraysOES(1, &_vertexArray);
-    glBindVertexArrayOES(_vertexArray);
+    glGenVertexArrays(1, &_vertexArray);
+    glBindVertexArray(_vertexArray);
     
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
@@ -403,7 +403,7 @@ double generateInterval = 0.0f;
     [EAGLContext setCurrentContext:self.context];
     
     glDeleteBuffers(1, &_vertexBuffer);
-    glDeleteVertexArraysOES(1, &_vertexArray);
+    glDeleteVertexArrays(1, &_vertexArray);
     
     self.effect = nil;
     
@@ -620,7 +620,7 @@ int numofboxes = 0;
             glEnableVertexAttribArray(GLKVertexAttribNormal);
             glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));
             
-            glBindVertexArrayOES(_vertexArray);
+            glBindVertexArray(_vertexArray);
             
             // Render the object with GLKit
             [self.effect prepareToDraw];
